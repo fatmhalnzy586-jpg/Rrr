@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090b13">
+<title>NEXVAULT LUA SHIELD</title>
+<style>
+:root{color-scheme:dark;--bg:#090b13;--panel:#121624;--line:#293148;--text:#f4f6ff;--muted:#a2abc1;--purple:#7c5cff;--cyan:#3ac9d6;--green:#43d99b;--red:#ff788c;--amber:#ffd078}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1c1740 0,#090b13 54%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}.wrap{max-width:1000px;margin:auto;padding:18px 13px 42px}.brand{display:flex;align-items:center;gap:12px;margin:7px 0 22px}.logo{width:49px;height:49px;flex-shrink:0;border-radius:15px;background:linear-gradient(135deg,var(--purple),var(--cyan));display:grid;place-items:center;font-size:24px;font-weight:900}.brand h1{font-size:19px;margin:0;letter-spacing:.4px}.brand p{font-size:12px;color:var(--muted);margin:5px 0 0}.hero,.panel{background:#121624ee;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:13px}.hero h2{font-size:23px;margin:0 0 7px}.muted{font-size:13px;line-height:1.75;color:var(--muted);margin:0}.pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.pill{background:#242a40;border:1px solid #343c57;border-radius:999px;padding:5px 9px;font-size:11px;color:#d9dcf4}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.panel h3{font-size:15px;margin:0 0 11px}label{font-size:12px;color:#c8cde0;display:block;margin-bottom:7px}textarea{width:100%;min-height:240px;resize:vertical;background:#090d17;color:#e8edff;border:1px solid #303951;border-radius:12px;padding:12px;outline:none;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;direction:ltr;text-align:left;tab-size:2}textarea:focus{border-color:#7964ff}button{font:inherit;font-weight:750;border-radius:11px;padding:11px 12px;border:1px solid #343c57;background:#222a3e;color:#f5f6ff;cursor:pointer}button:active{transform:scale(.985)}button:disabled{opacity:.45;cursor:not-allowed}.primary{background:linear-gradient(100deg,#795bff,#4c83ff);border:0}.green{background:#15392f;border-color:#245d4a}.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.row button{flex:1}.full{width:100%}.status{font-size:12px;line-height:1.65;color:var(--muted);margin-top:10px;min-height:18px}.report{display:grid;gap:8px}.finding{padding:11px;border:1px solid #343c57;border-radius:12px;background:#0d111d}.finding strong{display:block;font-size:13px;margin-bottom:4px}.finding p{font-size:12px;line-height:1.6;color:var(--muted);margin:0;overflow-wrap:anywhere}.sev{display:inline-block;font-size:10px;border-radius:999px;padding:3px 7px;margin-inline-start:6px}.warn{background:#45351c;color:var(--amber)}.danger{background:#45212c;color:#ff9cab}.info{background:#202e4b;color:#a8c9ff}.good{background:#14392e;color:#80edbb}.note{border:1px solid #493c25;background:#211c13;padding:12px;border-radius:12px;color:#e6d3a8;font-size:12px;line-height:1.8}.footer{text-align:center;color:#6f7890;font-size:11px;margin-top:22px}code{direction:ltr;unicode-bidi:embed;color:#d3caff}@media(max-width:700px){.grid{grid-template-columns:1fr}.wrap{padding:14px 11px 35px}textarea{min-height:210px}.hero h2{font-size:21px}.brand h1{font-size:17px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="brand"><div class="logo">N</div><div><h1>NEXVAULT <span style="color:#a99aff">LUA SHIELD</span></h1><p>مساعد محلي لفحص وتنظيم أكواد Lua / Luau</p></div></header>
+<section class="hero">
+<h2>افحص كودك. نظّمه. افهم مخاطره. 🛡️</h2>
+<p class="muted">تعمل المعالجة داخل متصفحك؛ لا يُرفع الكود إلى خادم من هذا الملف. أداة الفحص تعتمد على مؤشرات نصية بسيطة وليست محلّلًا كاملًا للغة Lua، وقد تعطي نتائج إيجابية أو سلبية خاطئة.</p>
+<div class="pills"><span class="pill">📱 متوافق مع الآيفون</span><span class="pill">🔒 معالجة محلية</span><span class="pill">Lua / Luau</span></div>
+</section>
+<section class="panel">
+<h3>الكود المصدر</h3>
+<label for="source">الصق سكربتك هنا</label>
+<textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="-- الصق كود Lua أو Luau هنا..."></textarea>
+<div class="row"><button id="paste">لصق</button><button id="scan" class="primary">🛡️ فحص الكود</button><button id="obfuscate">🔐 تشويش بسيط</button><button id="clear">مسح</button></div>
+<div class="status" id="status" aria-live="polite">جاهز. الصق كودًا تملكه أو لديك إذن بفحصه.</div>
+</section>
+<div class="grid">
+<section class="panel">
+<h3>نتائج الفحص</h3>
+<div id="report" class="report"><div class="finding"><strong>بانتظار الفحص</strong><p>اضغط «فحص الكود» لعرض مؤشرات تستحق المراجعة.</p></div></div>
+</section>
+<section class="panel">
+<h3>الناتج</h3>
+<label for="output">الكود بعد التشويش البسيط</label>
+<textarea id="output" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="سيظهر الناتج هنا..." style="min-height:210px"></textarea>
+<div class="row"><button class="green" id="copy">نسخ الناتج</button><button id="useOutput">استخدام الناتج كمدخل</button></div>
+<div class="status" id="outStatus" aria-live="polite">التشويش هنا يزيل التعليقات والمسافات غير الضرورية فقط؛ لا يعيد تسمية المتغيرات ولا يضمن إخفاء المنطق.</div>
+</section>
+</div>
+<section class="panel">
+<h3>حدود الحماية — اقرأها قبل الاستخدام</h3>
+<div class="note">التشويش ليس تشفيرًا، ولا يمنع النسخ أو الاستعادة أو التحليل. لا تضع مفاتيح API أو كلمات مرور أو أسرارًا داخل سكربت عميل. لا يمكن الاعتماد على فحص نصّي وحده لإثبات أن الكود آمن، ولا تتجاوز هذه الأداة أنظمة Roblox أو وسائل الحماية أو شروط المنصة.</div>
+</section>
+<div class="footer">NEXVAULT LUA SHIELD · أداة مستقلة، غير تابعة لـ Roblox أو Delta</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function setStatus(msg){$('status').textContent=msg}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('paste').onclick=async()=>{try{$('source').value=await navigator.clipboard.readText();setStatus('تم اللصق من الحافظة.')}catch(e){setStatus('لم يسمح المتصفح بالوصول للحافظة. اضغط داخل مربع الكود ثم اختر لصق من قائمة الآيفون.')}};
+$('clear').onclick=()=>{$('source').value='';$('output').value='';$('report').innerHTML='<div class="finding"><strong>تم المسح</strong><p>المربعات فارغة الآن.</p></div>';setStatus('تم مسح الحقول.');$('outStatus').textContent='';};
+$('copy').onclick=async()=>{const v=$('output').value;if(!v){$('outStatus').textContent='لا يوجد ناتج لنسخه.';return}try{await navigator.clipboard.writeText(v);$('outStatus').textContent='تم نسخ الناتج.'}catch(e){$('output').focus();$('output').select();$('outStatus').textContent='حدد النص ثم اختر نسخ من قائمة الآيفون.'}};
+$('useOutput').onclick=()=>{if(!$('output').value){$('outStatus').textContent='لا يوجد ناتج بعد.';return}$('source').value=$('output').value;setStatus('تم نقل الناتج إلى مربع المصدر.')};
+// Simple conservative scanner: findings are review prompts, not verdicts.
+const rules=[
+ {re:/\bloadstring\s*\(/i,title:'تنفيذ نص ديناميكي',desc:'loadstring قد ينفّذ نصًا مُنشأ أو محمّلًا. تأكد من مصدر النص وسبب الحاجة إليه.',sev:'danger'},
+ {re:/\b(game\s*:\s*HttpGet|HttpGetAsync|request\s*\(|http_request|syn\.request)\b/i,title:'طلب شبكة أو تحميل محتوى',desc:'راجع وجهة الطلب والبيانات المرسلة. لا تشغّل كودًا مجهول المصدر.',sev:'warn'},
+ {re:/\b(getgenv| getrenv| getrenv|hookfunction|hookmetamethod|newcclosure|identifyexecutor)\b/i,title:'واجهة خاصة ببيئة تنفيذ',desc:'هذا الرمز قد يعتمد على بيئة تنفيذ خارج Lua القياسية. تحقّق من المصدر والهدف قبل التشغيل.',sev:'warn'},
+ {re:/\b(writefile|readfile|delfile|listfiles|setclipboard)\b/i,title:'وصول إلى ملفات أو الحافظة',desc:'تحقق من البيانات التي تُقرأ أو تُكتب ومن أن العملية متوقعة.',sev:'warn'},
+ {re:/\bwhile\s+true\s+do\b/i,title:'حلقة غير منتهية محتملة',desc:'تأكد من وجود انتظار أو شرط خروج حتى لا يستهلك السكربت موارد الجهاز.',sev:'warn'},
+ {re:/\b(game\s*:\s*GetService\s*\(\s*["']MarketplaceService["']\s*\)|PromptProductPurchase|PromptGamePassPurchase)\b/i,title:'تفاعل مع مشتريات',desc:'راجع أن أي تدفق شراء واضح ومقصود ولا يضلل المستخدم.',sev:'warn'},
+ {re:/\b(debug\.getupvalue|debug\.setupvalue|debug\.getregistry)\b/i,title:'استخدام واجهات debug',desc:'قد تكشف هذه الواجهات تفاصيل داخلية أو تعتمد على بيئة غير قياسية.',sev:'info'},
+ {re:/\b(password|api[_-]?key|secret|token)\s*=\s*["'][^"']{5,}["']/i,title:'سلسلة قد تكون سرًا ثابتًا',desc:'تحقق يدويًا من عدم تضمين مفتاح أو رمز وصول حقيقي في الكود.',sev:'danger'}
+];
+$('scan').onclick=()=>{
+ const code=$('source').value;if(!code.trim()){setStatus('الصق كودًا أولًا.');return}
+ const found=rules.filter(r=>r.re.test(code));const root=$('report');root.innerHTML='';
+ if(!found.length){root.innerHTML='<div class="finding"><strong><span class="sev good">لم تُكتشف مؤشرات</span> لا توجد مطابقات للقواعد الحالية</strong><p>هذا لا يعني أن الكود آمن؛ الفحص محدود ويبحث عن أنماط نصية معروفة فقط.</p></div>'}
+ else found.forEach(r=>{const el=document.createElement('div');el.className='finding';const strong=document.createElement('strong');const pill=document.createElement('span');pill.className='sev '+r.sev;pill.textContent=r.sev==='danger'?'مراجعة مهمة':r.sev==='warn'?'تحقق':'معلومة';strong.append(pill,document.createTextNode(r.title));const p=document.createElement('p');p.textContent=r.desc;el.append(strong,p);root.append(el)});
+ setStatus('انتهى الفحص: '+found.length+' مؤشر/مؤشرات للمراجعة. لا تعتبر النتيجة حكمًا نهائيًا.');
+};
+function stripLuaCommentsAndMinify(src){
+ let out='',i=0,quote=null,longLevel=null,space=false;
+ const isWord=c=>!!c&&/[A-Za-z0-9_]/.test(c);
+ while(i<src.length){
+  const c=src[i],n=src[i+1];
+  if(quote){out+=c;if(c==='\\'&&i+1<src.length){out+=src[i+1];i+=2;continue}if(c===quote)quote=null;i++;continue}
+  if(longLevel!==null){
+   const close=']'+'='.repeat(longLevel)+']';
+   if(src.startsWith(close,i)){out+=close;i+=close.length;longLevel=null}else{out+=c;i++}continue
+  }
+  if(c==='"'||c==="'"){if(space&&isWord(out[out.length-1]))out+=' ';space=false;quote=c;out+=c;i++;continue}
+  if(c==='['){const m=src.slice(i).match(/^\[(=*)\[/);if(m){if(space&&isWord(out[out.length-1]))out+=' ';space=false;longLevel=m[1].length;out+=m[0];i+=m[0].length;continue}}
+  if(c==='-'&&n==='-'){
+   const lm=src.slice(i+2).match(/^\[(=*)\[/);
+   if(lm){const close=']'+'='.repeat(lm[1].length)+']';let end=src.indexOf(close,i+2+lm[0].length);i=end<0?src.length:end+close.length;space=true;continue}
+   let end=src.indexOf('\n',i+2);i=end<0?src.length:end;space=true;continue
+  }
+  if(/\s/.test(c)){space=true;i++;continue}
+  if(space){const prev=out[out.length-1];if(isWord(prev)&&isWord(c))out+=' ';else if((prev==='-'&&c==='-')||(prev==='.'&&c==='.')||(prev==='='&&c==='=')||(prev==='~'&&c==='=')||(prev==='<'&&c==='=')||(prev==='>'&&c==='=')||(prev==='/'&&c==='/'))out+=' ';}space=false;out+=c;i++;
+ }
+ return out.trim()
+}
+$('obfuscate').onclick=()=>{const code=$('source').value;if(!code.trim()){setStatus('الصق كودًا أولًا.');return}const result=stripLuaCommentsAndMinify(code);$('output').value=result;$('outStatus').textContent='تم إنشاء نسخة مختصرة بإزالة التعليقات والمسافات الزائدة خارج النصوص. راجع الناتج واختبره في بيئة آمنة قبل الاستخدام.';setStatus('اكتمل التشويش البسيط محليًا.');};
+</script>
+</body>
+</html>
